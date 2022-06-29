@@ -2,20 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Table Generator - Shopify Product Metafield Specification Table Generator</title>
+    <title>HTML Generator - Shopify Product Metafield HTML Generator</title>
     <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/cerulean/bootstrap.min.css'>
     <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css'>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/styles/github.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.18.9/jodit.min.css"/>
     <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
 
-<div class="table-builder p-5">
-    <h1 class="h3 mb-2">Shopify Product Metafield Specification Table Generator</h1>
-    <h2 class="h6"><i class="fa-brands fa-github"></i> <a class="text-muted"
-                                                          href="https://github.com/webforward/shopify-tables"
-                                                          target="_blank">https://github.com/webforward/shopify-tables</a>
+<div class="wysiwyg-builder p-5">
+    <h1 class="h3 mb-2">Shopify Product Metafield HTMLGenerator</h1>
+    <h2 class="h6"><i class="fa-brands fa-github"></i> <a class="text-muted" href="https://github.com/webforward/shopify-wysiwyg" target="_blank">https://github.com/webforward/shopify-wysiwyg</a>
     </h2>
 
     <div class="d-flex mt-4 mb-3">
@@ -25,53 +24,17 @@
         </button>
 
         <div class="btn-group me-3" role="group">
-            <button class="import-modal btn btn-primary fw-bold"><i class="fa-solid fa-file-import me-1"></i> Import JSON
-            </button>
-            <button class="html-modal btn btn-primary"><i class="fa-solid fa-file-import me-1"></i> Import HTML</button>
+            <button class="import-modal btn btn-primary"><i class="fa-solid fa-file-import me-1"></i> Import HTML</button>
+            <button class="export-modal btn btn-info text-white fw-bold me-3">Export HTML <i class="fa-solid fa-file-export ms-1"></i></button>
         </div>
 
-        <button class="export-modal btn btn-info text-white fw-bold me-3">Export JSON <i class="fa-solid fa-file-export ms-1"></i>
+        <button class="clear-wysiwyg btn btn-warning text-white ms-5"><i class="fa-solid fa-trash-can me-1"></i> Clear
+            WYSIWYG
         </button>
 
-        <div class="d-inline me-3" style="width: 210px">
-            <div class="input-group">
-                <select class="form-select choose-slim" name="size">
-                    <option>Slim</option>
-                    <option selected>Normal</option>
-
-                </select>
-                <select class="form-select choose-size" name="size">
-                    <option>50</option>
-                    <option>100</option>
-                    <option>100</option>
-                    <option selected>200</option>
-                    <option>300</option>
-                    <option>400</option>
-                    <option>500</option>
-                    <option>1000</option>
-                    <option>2000</option>
-                </select>
-            </div>
-        </div>
-
-        <button class="clear-table btn btn-warning text-white ms-5"><i class="fa-solid fa-trash-can me-1"></i> Clear
-            Table
-        </button>
     </div>
 
-    <table class="table w-auto position-relative">
-        <tbody>
-        </tbody>
-        <tfoot></tfoot>
-    </table>
-
-    <div class="d-flex flex-row justify-content-between mb-4">
-        <div class="d-flex flex-row">
-            <button class="add-row btn btn-primary me-3"><i class="fa-solid fa-arrow-down"></i> Add Row</button>
-            <button class="add-column btn btn-primary me-3"><i class="fa-solid fa-arrow-right"></i> Add Column</button>
-
-        </div>
-    </div>
+    <textarea id="wysiwyg"></textarea>
 
     <p class="text-info fw-light"><small>All information entered is stored within your browsers
         <a target="_blank" href="https://dev.to/arikaturika/javascript-local-storage-beginner-s-guide-1gk1">local storage object</a>.
@@ -197,65 +160,39 @@
 
 </div>
 
-<div class="modal" id="import-modal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Import JSON</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Paste the JSON code from your Shopify product metafield below:</p>
-                <textarea class="form-control" rows="10"
-                          placeholder='[{"0":"Specification"},{"0":"Dimensions","1":"1000mm x 1430mm"}]'></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="import-json btn btn-primary">Import Table</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal" id="export-modal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Export JSON</h5>
+                <h5 class="modal-title">Export HTML</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Copy the following JSON code into your Shopify product metafield:</p>
+                <p>Copy the following HTML code into your Shopify product metafield:</p>
                 <textarea class="form-control" rows="10" readonly></textarea>
             </div>
             <div class="modal-footer">
-                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="export-json btn btn-primary">
+                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="export-html btn btn-primary">
                     Close
                 </button>
             </div>
         </div>
     </div>
 </div>
-<div class="modal" id="html-modal" tabindex="-1">
+<div class="modal" id="import-modal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Import HTML Table</h5>
+                <h5 class="modal-title">Import HTML</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Paste a HTML table and we will try our best to read the information:</p>
-                <textarea class="form-control" rows="10" placeholder='<table>
-  <tr>
-    <td colspan="2">Specification</td>
-    </tr>
-  <tr>
-    <td>Dimensions</td>
-    <td>1000mm x 1430mm</td>
-  </tr>
-</table>'></textarea>
+                <p>Paste your HTML and we will try our best to read the information:</p>
+                <textarea class="form-control" rows="10"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" data-bs-dismiss="modal" aria-label="Close" class="import-html btn btn-primary">
-                    Import Table
+                    Import HTML
                 </button>
             </div>
         </div>
@@ -264,8 +201,8 @@
 
 <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
 <script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js'></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable-min.js'></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.18.9/jodit.min.js"></script>
 <script src="./script.js"></script>
 
 </body>
