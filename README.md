@@ -1,1 +1,1 @@
-Please visit https://webforward.github.io/shopify-tables/ for more information.
+Please visit https://webforward.github.io/shopify-wysiwyg/ for more information.
